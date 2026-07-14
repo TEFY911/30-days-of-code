@@ -7,3 +7,7 @@
 *.user
 *.suo
 *.cache
+
+# Documents and local artifacts
+*.pdf
+*.log
