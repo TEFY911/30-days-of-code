@@ -1,26 +1,32 @@
-function main() {
-    const fs = require('fs');
-    const values = fs.readFileSync(0, 'utf8').trim().split(/\s+/).map(Number);
-    const matrix = [];
+'use strict';
 
-    for (let i = 0; i < 6; i++) {
-        matrix.push(values.slice(i * 6, i * 6 + 6));
-    }
+const fs = require('fs');
 
-    let maxSum = -63;
+const input = fs.readFileSync(0, 'utf8').trim().split('\n');
 
-    for (let row = 0; row < 4; row++) {
-        for (let col = 0; col < 4; col++) {
-            const hourglass =
-                matrix[row][col] + matrix[row][col + 1] + matrix[row][col + 2] +
-                matrix[row + 1][col + 1] +
-                matrix[row + 2][col] + matrix[row + 2][col + 1] + matrix[row + 2][col + 2];
+const arr = [];
 
-            maxSum = Math.max(maxSum, hourglass);
-        }
-    }
-
-    console.log(maxSum);
+// Leer la matriz 6x6
+for (let i = 0; i < 6; i++) {
+    arr.push(input[i].trim().split(/\s+/).map(Number));
 }
 
-main();
+let maxSum = -Infinity;
+
+// Recorrer todas las posiciones posibles
+for (let i = 0; i < 4; i++) {
+    for (let j = 0; j < 4; j++) {
+        const hourglassSum =
+            arr[i][j] +
+            arr[i][j + 1] +
+            arr[i][j + 2] +
+            arr[i + 1][j + 1] +
+            arr[i + 2][j] +
+            arr[i + 2][j + 1] +
+            arr[i + 2][j + 2];
+
+        maxSum = Math.max(maxSum, hourglassSum);
+    }
+}
+
+console.log(maxSum);

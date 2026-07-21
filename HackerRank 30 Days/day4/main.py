@@ -1,34 +1,34 @@
 class Person:
-    def __init__(self, initialAge: int):
+    def __init__(self, initialAge):
         if initialAge < 0:
-            print("Age is not valid, setting age to 0.")
             self.age = 0
+            print("Age is not valid, setting age to 0.")
         else:
             self.age = initialAge
 
-    def amIOld(self) -> None:
+    def amIOld(self):
         if self.age < 13:
             print("You are young.")
-        elif self.age < 18:
+        elif self.age >= 13 and self.age < 18:
             print("You are a teenager.")
         else:
             print("You are old.")
 
-    def yearPasses(self) -> None:
+    def yearPasses(self):
         self.age += 1
 
 
-def main() -> None:
-    t = int(input().strip())
+# Código principal
+T = int(input())
 
-    for _ in range(t):
-        age = int(input().strip())
-        person = Person(age)
-        person.amIOld()
-        for _ in range(3):
-            person.yearPasses()
-        person.amIOld()
+for _ in range(T):
+    age = int(input())
 
+    p = Person(age)
+    p.amIOld()
 
-if __name__ == "__main__":
-    main()
+    for _ in range(3):
+        p.yearPasses()
+
+    p.amIOld()
+    print()

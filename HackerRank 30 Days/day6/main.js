@@ -1,25 +1,24 @@
-function main() {
-    const input = require("fs").readFileSync(0, "utf8").trim().split(/\r?\n/);
-    const t = parseInt(input[0], 10);
-    const result = [];
+'use strict';
 
-    for (let i = 1; i <= t; i++) {
-        const s = input[i] ?? "";
-        let pares = "";
-        let impares = "";
+const fs = require('fs');
 
-        for (let j = 0; j < s.length; j++) {
-            if (j % 2 === 0) {
-                pares += s[j];
-            } else {
-                impares += s[j];
-            }
+const input = fs.readFileSync(0, 'utf8').trim().split('\n');
+
+const T = parseInt(input[0]);
+
+for (let i = 1; i <= T; i++) {
+    const S = input[i].trim();
+
+    let even = "";
+    let odd = "";
+
+    for (let j = 0; j < S.length; j++) {
+        if (j % 2 === 0) {
+            even += S[j];
+        } else {
+            odd += S[j];
         }
-
-        result.push(`${pares} ${impares}`);
     }
 
-    console.log(result.join("\n"));
+    console.log(even + " " + odd);
 }
-
-main();

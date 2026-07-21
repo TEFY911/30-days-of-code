@@ -1,21 +1,21 @@
-function main() {
-    const fs = require('fs');
-    const n = parseInt(fs.readFileSync(0, 'utf8').trim(), 10);
-    const binary = n.toString(2);
+'use strict';
 
-    let count = 0;
-    let maxCount = 0;
+const fs = require('fs');
 
-    for (const bit of binary) {
-        if (bit === '1') {
-            count += 1;
-            maxCount = Math.max(maxCount, count);
-        } else {
-            count = 0;
-        }
+const n = parseInt(fs.readFileSync(0, 'utf8').trim());
+
+const binary = n.toString(2);
+
+let maxOnes = 0;
+let currentOnes = 0;
+
+for (const digit of binary) {
+    if (digit === '1') {
+        currentOnes++;
+        maxOnes = Math.max(maxOnes, currentOnes);
+    } else {
+        currentOnes = 0;
     }
-
-    console.log(maxCount);
 }
 
-main();
+console.log(maxOnes);

@@ -1,20 +1,19 @@
-# Enter your code here. Read input from STDIN. Print output to STDOUT
-#!/bin/python3
-
-import sys
-
 n = int(input())
 
 phone_book = {}
 
+# Guardar los nombres y números
 for _ in range(n):
-    name, number = input().split()
-    phone_book[name] = number
+    name, phone = input().split()
+    phone_book[name] = phone
 
-for query in sys.stdin:
-    query = query.strip()
-
-    if query in phone_book:
-        print(f"{query}={phone_book[query]}")
-    else:
-        print("Not found")
+# Procesar las consultas hasta que no haya más entradas
+while True:
+    try:
+        name = input()
+        if name in phone_book:
+            print(f"{name}={phone_book[name]}")
+        else:
+            print("Not found")
+    except EOFError:
+        break

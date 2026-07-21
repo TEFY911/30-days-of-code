@@ -1,36 +1,30 @@
-function processData(input) {
-    const lines = input.trim().split('\n');
-    
-    const n = parseInt(lines[0]);
-    const phoneBook = new Map();
+'use strict';
 
-    // Guardar los contactos
-    for (let i = 1; i <= n; i++) {
-        const [name, number] = lines[i].split(' ');
-        phoneBook.set(name, number);
-    }
+const fs = require('fs');
 
-    // Procesar las consultas
-    for (let i = n + 1; i < lines.length; i++) {
-        const query = lines[i].trim();
+const input = fs.readFileSync(0, 'utf8').trim().split(/\s+/);
 
-        if (phoneBook.has(query)) {
-            console.log(query + "=" + phoneBook.get(query));
-        } else {
-            console.log("Not found");
-        }
-    }
+let index = 0;
+
+const n = parseInt(input[index++]);
+
+const phoneBook = new Map();
+
+// Guardar los nombres y números
+for (let i = 0; i < n; i++) {
+    const name = input[index++];
+    const phone = input[index++];
+
+    phoneBook.set(name, phone);
 }
 
-process.stdin.resume();
-process.stdin.setEncoding("ascii");
+// Procesar las consultas restantes
+while (index < input.length) {
+    const name = input[index++];
 
-let _input = "";
-
-process.stdin.on("data", function (input) {
-    _input += input;
-});
-
-process.stdin.on("end", function () {
-    processData(_input);
-});
+    if (phoneBook.has(name)) {
+        console.log(`${name}=${phoneBook.get(name)}`);
+    } else {
+        console.log("Not found");
+    }
+}

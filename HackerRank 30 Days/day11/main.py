@@ -1,25 +1,20 @@
-import sys
+arr = []
 
+# Leer la matriz 6x6
+for _ in range(6):
+    arr.append(list(map(int, input().split())))
 
-def main():
-    data = list(map(int, sys.stdin.read().split()))
-    if not data:
-        return
+max_sum = float('-inf')
 
-    matrix = [data[i:i + 6] for i in range(0, 36, 6)]
-    max_sum = -63
+# Recorrer todas las posiciones posibles
+for i in range(4):
+    for j in range(4):
+        hourglass_sum = (
+            arr[i][j] + arr[i][j + 1] + arr[i][j + 2]
+            + arr[i + 1][j + 1]
+            + arr[i + 2][j] + arr[i + 2][j + 1] + arr[i + 2][j + 2]
+        )
 
-    for row in range(4):
-        for col in range(4):
-            hourglass = (
-                matrix[row][col] + matrix[row][col + 1] + matrix[row][col + 2] +
-                matrix[row + 1][col + 1] +
-                matrix[row + 2][col] + matrix[row + 2][col + 1] + matrix[row + 2][col + 2]
-            )
-            max_sum = max(max_sum, hourglass)
+        max_sum = max(max_sum, hourglass_sum)
 
-    print(max_sum)
-
-
-if __name__ == "__main__":
-    main()
+print(max_sum)
