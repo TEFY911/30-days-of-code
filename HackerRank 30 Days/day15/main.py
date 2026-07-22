@@ -5,30 +5,46 @@ class Node:
 
 
 class Solution:
-    def insert(self, head, data):
-        p = Node(data)
-        if head is None:
-            head = p
-        else:
-            current = head
-            while current.next is not None:
-                current = current.next
-            current.next = p
-        return head
-
     def display(self, head):
         current = head
-        while current is not None:
+
+        while current:
             print(current.data, end=' ')
             current = current.next
 
+    def insert(self, head, data):
+        new_node = Node(data)
 
-T = int(input())
-head = None
+        # Si la lista está vacía
+        if head is None:
+            return new_node
+
+        # Recorrer hasta el último nodo
+        current = head
+
+        while current.next is not None:
+            current = current.next
+
+        # Insertar el nuevo nodo al final
+        current.next = new_node
+
+        # Retornar el primer nodo
+        return head
+
+
+# Crear el objeto Solution
 mylist = Solution()
 
-for _ in range(T):
+# Leer cantidad de elementos
+T = int(input())
+
+# La lista comienza vacía
+head = None
+
+# Insertar cada elemento
+for i in range(T):
     data = int(input())
     head = mylist.insert(head, data)
 
+# Mostrar la lista
 mylist.display(head)
