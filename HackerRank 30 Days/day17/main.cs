@@ -6,7 +6,7 @@ class Calculator
     {
         if (n < 0 || p < 0)
         {
-            throw new ArgumentException("n and p should be non-negative");
+            throw new Exception("n and p should be non-negative");
         }
 
         return (int)Math.Pow(n, p);
@@ -17,22 +17,23 @@ class Solution
 {
     static void Main(string[] args)
     {
-        int t = int.Parse(Console.ReadLine() ?? "0");
-        Calculator calculator = new Calculator();
+        Calculator myCalculator = new Calculator();
+        int T = Int32.Parse(Console.ReadLine());
 
-        for (int i = 0; i < t; i++)
+        while (T-- > 0)
         {
-            string[] values = (Console.ReadLine() ?? "").Split(' ');
-            int n = int.Parse(values[0]);
-            int p = int.Parse(values[1]);
+            string[] num = Console.ReadLine().Split(' ');
+            int n = int.Parse(num[0]);
+            int p = int.Parse(num[1]);
 
             try
             {
-                Console.WriteLine(calculator.power(n, p));
+                int ans = myCalculator.power(n, p);
+                Console.WriteLine(ans);
             }
-            catch (ArgumentException ex)
+            catch (Exception e)
             {
-                Console.WriteLine(ex.Message);
+                Console.WriteLine(e.Message);
             }
         }
     }

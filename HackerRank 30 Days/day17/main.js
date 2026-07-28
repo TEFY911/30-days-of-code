@@ -1,41 +1,45 @@
-function processData(input) {
-    const lines = input.trim().split(/\s+/);
-    const t = parseInt(lines[0], 10);
-    const output = [];
-
-    class Calculator {
-        power(n, p) {
-            if (n < 0 || p < 0) {
-                throw new Error("n and p should be non-negative");
-            }
-            return Math.pow(n, p);
-        }
-    }
-
-    const calculator = new Calculator();
-    let index = 1;
-
-    for (let i = 0; i < t; i++) {
-        const n = parseInt(lines[index], 10);
-        const p = parseInt(lines[index + 1], 10);
-        index += 2;
-
-        try {
-            output.push(String(calculator.power(n, p)));
-        } catch (error) {
-            output.push(error.message);
-        }
-    }
-
-    console.log(output.join("\n"));
-}
+'use strict';
 
 process.stdin.resume();
-process.stdin.setEncoding("ascii");
-let _input = "";
-process.stdin.on("data", function (input) {
-    _input += input;
+process.stdin.setEncoding('utf-8');
+
+let inputString = '';
+let currentLine = 0;
+
+process.stdin.on('data', inputStdin => {
+    inputString += inputStdin;
 });
-process.stdin.on("end", function () {
-    processData(_input);
+
+process.stdin.on('end', () => {
+    inputString = inputString.trim().split('\n');
+    main();
 });
+
+function readLine() {
+    return inputString[currentLine++];
+}
+
+class Calculator {
+    power(n, p) {
+        if (n < 0 || p < 0) {
+            throw new Error("n and p should be non-negative");
+        }
+
+        return n ** p;
+    }
+}
+
+function main() {
+    const myCalculator = new Calculator();
+    const T = parseInt(readLine());
+
+    for (let i = 0; i < T; i++) {
+        const [n, p] = readLine().split(' ').map(Number);
+
+        try {
+            console.log(myCalculator.power(n, p));
+        } catch (e) {
+            console.log(e.message);
+        }
+    }
+}
